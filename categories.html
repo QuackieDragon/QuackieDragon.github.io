@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Stories</title>
+  <meta name="description" content="A minimalist story blog with dark/light mode, inspired by literary foundations." />  <style>
+    :root {
+      --bg: #0f1115;
+      --text: #e6e6e6;
+      --muted: #9aa0a6;
+      --panel: #181b22;
+      --accent: #c9b37e;
+    }
+
+    body.light {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #555;
+      --panel: #ffffff;
+      --accent: #7a5c2e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .title {
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 1.25rem;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Side menu */
+    .menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background: var(--panel);
+      padding: 2rem 1.5rem;
+      transition: left 0.3s;
+      z-index: 1000;
+    }
+
+    .menu.open {
+      left: 0;
+    }
+
+    .menu a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .menu a:hover {
+      color: var(--accent);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 900;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 3rem 1rem;
+    }
+
+    @media (min-width: 900px) {
+      .menu {
+        left: 0;
+        position: static;
+        width: auto;
+        height: auto;
+        display: flex;
+        gap: 2rem;
+        padding: 0;
+        background: none;
+      }
+      .overlay { display: none; }
+    }
+  </style></head>
+<body>  <div class="menu" id="menu">
+    <a href="#">Featured</a>
+    <a href="/stories">Stories</a>
+    <a href="categories.html">Categories</a>
+    <a href="about.html">About</a>
+    <a href="#">Subscribe</a>
+  </div>  <div class="overlay" id="overlay"></div>  <header>
+    <div class="icons" id="menuBtn">☰</div>
+    <div class="title">Quiet Stories</div>
+    <div class="icons" id="themeBtn">◐</div>
+  </header>  <main>
+  <h1>Categories</h1>
+
+  <ul>
+    <li><a href="/stories/">Short Fiction</a></li>
+    <li><a href="/stories/">Psychological</a></li>
+    <li><a href="/stories/">Speculative</a></li>
+  </ul>
+  </main>  <footer>
+    © 2026 Quiet Stories · GitHub Pages Ready
+  </footer>  <script>
+    const body = document.body;
+    const menu = document.getElementById('menu');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const themeBtn = document.getElementById('themeBtn');
+
+    // Menu toggle
+    menuBtn.onclick = () => {
+      menu.classList.add('open');
+      overlay.classList.add('show');
+    };
+
+    overlay.onclick = () => {
+      menu.classList.remove('open');
+      overlay.classList.remove('show');
+    };
+
+    // Theme toggle
+    themeBtn.onclick = () => {
+      body.classList.toggle('light');
+      localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+    };
+
+    // Persist theme
+    if (localStorage.getItem('theme') === 'light') {
+      body.classList.add('light');
+    }
+  </script></body>
+</html>
